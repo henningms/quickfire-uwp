@@ -9,6 +9,8 @@
     mc:Ignorable="d">
 
     <Grid Background="White">
-        <userControls:CapturePhotoVideoUserControl x:Name="CapturePhotoVideoControl" />
+        <userControls:CapturePhotoVideoUserControl x:Name="CapturePhotoVideoControl" 
+                                                   Holding="CapturePhotoVideoControl_Holding"
+                                                   Tapped="CapturePhotoVideoControl_Tapped"/>
     </Grid>
 </Page>

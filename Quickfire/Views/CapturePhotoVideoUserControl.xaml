@@ -11,5 +11,8 @@
 
     <Grid>
         <CaptureElement Name="PreviewControl" Stretch="Uniform"/>
+
+        <Button x:Name="CaptureButton" Content="Capture"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom" Holding="CaptureButton_Holding" Tapped="CaptureButton_Tapped_1"/>
     </Grid>
 </UserControl>

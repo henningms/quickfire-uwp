@@ -196,6 +196,7 @@ namespace Quickfire.Views
         {
             if (args.Orientation != SimpleOrientation.Faceup && args.Orientation != SimpleOrientation.Facedown)
             {
+                Debug.WriteLine("OrientationSensor Change: {0}", args.Orientation);
                 _deviceOrientation = args.Orientation;
             }
         }
@@ -262,6 +263,8 @@ namespace Quickfire.Views
                 Debug.WriteLine("Photo taken!");
 
                 var photoOrientation = ConvertOrientationToPhotoOrientation(GetCameraOrientation());
+
+                Debug.WriteLine("Orientation: {0}", photoOrientation);
                 await ReencodeAndSavePhotoAsync(stream, "photo.jpg", photoOrientation);
             }
             catch (Exception ex)
@@ -290,6 +293,11 @@ namespace Quickfire.Views
                     case SimpleOrientation.Rotated270DegreesCounterclockwise:
                         return SimpleOrientation.Rotated90DegreesCounterclockwise;
                 }
+            }
+
+            if (_displayOrientation == DisplayOrientations.Portrait)
+            {
+                return SimpleOrientation.Rotated270DegreesCounterclockwise;
             }
 
             return _deviceOrientation;
@@ -342,6 +350,9 @@ namespace Quickfire.Views
 
                 // Calculate rotation angle, taking mirroring into account if necessary
                 var rotationAngle = 360 - ConvertDeviceOrientationToDegrees(GetCameraOrientation());
+
+                Debug.WriteLine("Rotation Angle: {0}", rotationAngle);
+                
                 encodingProfile.Video.Properties.Add(RotationKey, PropertyValue.CreateInt32(rotationAngle));
 
                 Debug.WriteLine("Starting recording...");
@@ -527,6 +538,23 @@ namespace Quickfire.Views
         private void ShowMessageToUser(string v)
         {
             throw new NotImplementedException();
+        }
+
+        private async void CaptureButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await TakePhotoAsync();
+        }
+
+        private async void CaptureButton_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                await StartRecordingAsync();
+            } 
+            else
+            {
+                await StopRecordingAsync();
+            }
         }
     }
 }

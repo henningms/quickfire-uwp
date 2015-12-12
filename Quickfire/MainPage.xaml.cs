@@ -89,5 +89,14 @@ namespace Quickfire
             }
         }
 
+        private void CapturePhotoVideoControl_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+
+        }
+
+        private void CapturePhotoVideoControl_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
     }
 }
