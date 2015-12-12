@@ -10,6 +10,6 @@
     d:DesignWidth="400">
 
     <Grid>
-
+        <CaptureElement Name="PreviewControl" Stretch="Uniform"/>
     </Grid>
 </UserControl>
